@@ -88,7 +88,6 @@ public class Main {
         gestorDB.insertarPunto(punt);
     }
 
-    // En el método eliminarPunto del Main
     public static void eliminarPunto(GestorDB gestorDB) {
         Scanner scanner = new Scanner(System.in);
 
@@ -106,7 +105,6 @@ public class Main {
     }
 
 
-    // En el método modificarPunto del Main
     public static void modificarPunto(GestorDB gestorDB) {
         Scanner scanner = new Scanner(System.in);
 
@@ -134,7 +132,7 @@ public class Main {
         System.out.print("Nueva latitud: ");
         double latitud = scanner.nextDouble();
 
-        scanner.nextLine(); // Consumir la nueva línea en el búfer
+        scanner.nextLine();
 
         System.out.print("Nuevo Icono URL: ");
         String icon = scanner.nextLine();

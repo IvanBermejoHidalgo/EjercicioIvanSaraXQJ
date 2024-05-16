@@ -1,22 +1,14 @@
 public class Dades {
-    // Coordinadas ED50
     double ed50CoordX;
     double ed50CoordY;
-
-    // Coordinadas ETRS89
     double etrs89CoordX;
     double etrs89CoordY;
-
-    // Coordenadas geográficas
     double longitud;
     double latitud;
-
-    // Otros datos
     String icon;
     String tooltip;
     String url;
 
-    // Constructor
     public Dades(double ed50CoordX, double ed50CoordY, double etrs89CoordX, double etrs89CoordY, double longitud, double latitud, String icon, String tooltip, String url) {
         this.ed50CoordX = ed50CoordX;
         this.ed50CoordY = ed50CoordY;
@@ -29,7 +21,6 @@ public class Dades {
         this.url = url;
     }
 
-    // Getters y Setters
     public double getEd50CoordX() {
         return ed50CoordX;
     }

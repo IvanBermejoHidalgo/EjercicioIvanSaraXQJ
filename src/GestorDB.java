@@ -58,7 +58,6 @@ public class GestorDB {
         System.out.println("Punto insertado correctamente.");
     }
 
-    // En la clase GestorDB
     public void eliminarPunto(String tooltip) {
         NodeList nodeList = document.getDocumentElement().getChildNodes();
         boolean found = false;
