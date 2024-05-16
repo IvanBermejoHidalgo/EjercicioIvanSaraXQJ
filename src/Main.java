@@ -109,14 +109,37 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Introduce el Tooltip del punto que deseas modificar: ");
-        String tooltip = scanner.nextLine();
+        String oldTooltip = scanner.nextLine();
+
+        System.out.print("Nuevo Tooltip: ");
+        String newTooltip = scanner.nextLine();
+
+        System.out.print("Nueva coordenada X de ED50: ");
+        double ed50CoordX = scanner.nextDouble();
+
+        System.out.print("Nueva coordenada Y de ED50: ");
+        double ed50CoordY = scanner.nextDouble();
+
+        System.out.print("Nueva coordenada X de ETRS89: ");
+        double etrs89CoordX = scanner.nextDouble();
+
+        System.out.print("Nueva coordenada Y de ETRS89: ");
+        double etrs89CoordY = scanner.nextDouble();
+
+        System.out.print("Nueva longitud: ");
+        double longitud = scanner.nextDouble();
+
+        System.out.print("Nueva latitud: ");
+        double latitud = scanner.nextDouble();
+
+        scanner.nextLine(); // Consumir la nueva línea en el búfer
 
         System.out.print("Nuevo Icono URL: ");
-        String newIcon = scanner.nextLine();
+        String icon = scanner.nextLine();
 
         System.out.print("Nuevo URL: ");
-        String newUrl = scanner.nextLine();
+        String url = scanner.nextLine();
 
-        gestorDB.modificarPunto(tooltip, newIcon, newUrl);
+        gestorDB.modificarPunto(oldTooltip, newTooltip, ed50CoordX, ed50CoordY, etrs89CoordX, etrs89CoordY, longitud, latitud, icon, url);
     }
 }

@@ -75,7 +75,7 @@ public class GestorDB {
     }
 
 
-    public void modificarPunto(String tooltip, String newIcon, String newUrl) {
+    public void modificarPunto(String oldTooltip, String newTooltip, double ed50CoordX, double ed50CoordY, double etrs89CoordX, double etrs89CoordY, double longitud, double latitud, String icon, String url) {
         NodeList nodeList = document.getDocumentElement().getChildNodes();
         boolean found = false;
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -83,9 +83,17 @@ public class GestorDB {
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element elemento = (Element) node;
                 String tooltipElement = elemento.getElementsByTagName("Tooltip").item(0).getTextContent();
-                if (tooltipElement.equals(tooltip)) {
-                    elemento.getElementsByTagName("Icon").item(0).setTextContent(newIcon);
-                    elemento.getElementsByTagName("URL").item(0).setTextContent(newUrl);
+                if (tooltipElement.equals(oldTooltip)) {
+                    Element coordElement = (Element) elemento.getElementsByTagName("Coord").item(0);
+                    coordElement.getElementsByTagName("ED50_COORD_X").item(0).setTextContent(String.valueOf(ed50CoordX));
+                    coordElement.getElementsByTagName("ED50_COORD_Y").item(0).setTextContent(String.valueOf(ed50CoordY));
+                    coordElement.getElementsByTagName("ETRS89_COORD_X").item(0).setTextContent(String.valueOf(etrs89CoordX));
+                    coordElement.getElementsByTagName("ETRS89_COORD_Y").item(0).setTextContent(String.valueOf(etrs89CoordY));
+                    coordElement.getElementsByTagName("Longitud").item(0).setTextContent(String.valueOf(longitud));
+                    coordElement.getElementsByTagName("Latitud").item(0).setTextContent(String.valueOf(latitud));
+                    elemento.getElementsByTagName("Icon").item(0).setTextContent(icon);
+                    elemento.getElementsByTagName("Tooltip").item(0).setTextContent(newTooltip);
+                    elemento.getElementsByTagName("URL").item(0).setTextContent(url);
                     guardarCambios();
                     System.out.println("Punto modificado correctamente.");
                     found = true;
