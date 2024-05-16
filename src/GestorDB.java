@@ -30,16 +30,26 @@ public class GestorDB {
         }
     }
 
-    public void mostrarPuntos() {
+    public void mostrarPuntos(String tooltip) {
         NodeList nodeList = document.getDocumentElement().getChildNodes();
+        boolean found = false;
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element elemento = (Element) node;
-                System.out.println(elementoToPunt(elemento));
+                String tooltipElement = elemento.getElementsByTagName("Tooltip").item(0).getTextContent();
+                if (tooltipElement.equals(tooltip)) {
+                    System.out.println(elementoToPunt(elemento));
+                    found = true;
+                    break;
+                }
             }
         }
+        if (!found) {
+            System.out.println("Punto con Tooltip '" + tooltip + "' no encontrado.");
+        }
     }
+
 
     public void insertarPunto(Dades punt) {
         Element puntoElement = puntToElemento(punt);

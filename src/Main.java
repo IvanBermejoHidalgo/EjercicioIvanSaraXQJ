@@ -25,8 +25,10 @@ public class Main {
 
                 switch (opcion) {
                     case 1:
-                        System.out.println("\n*** Mostrar puntos registrados ***");
-                        gestorDB.mostrarPuntos();
+                        scanner.nextLine(); // Consumir la nueva línea en el búfer
+                        System.out.print("Introduce el Tooltip del punto que deseas mostrar: ");
+                        String tooltipToShow = scanner.nextLine();
+                        gestorDB.mostrarPuntos(tooltipToShow);
                         break;
                     case 2:
                         insertarPunto(gestorDB);
