@@ -1,25 +1,25 @@
-import java.util.InputMismatchException;
+import javax.xml.xquery.XQException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        GestorDB gestorDB = new GestorDB("TRANSPORTS_GEOXML.xml");
-        boolean salir = false;
-        int opcion;
+        try {
+            Scanner scanner = new Scanner(System.in);
+            GestorDB gestorDB = new GestorDB("/db/EjercicioIvanSara/TRANSPORTS_GEOXML.xml");
+            boolean salir = false;
+            int opcion;
 
-        while (!salir) {
-            System.out.println();
-            System.out.println("###################################################################");
-            System.out.println("##                            MENÚ                               ##");
-            System.out.println("## 1. Mostrar puntos registrados                                 ##");
-            System.out.println("## 2. Insertar punto                                             ##");
-            System.out.println("## 3. Eliminar punto                                             ##");
-            System.out.println("## 4. Modificar punto                                            ##");
-            System.out.println("## 5. Salir                                                      ##");
-            System.out.println("###################################################################");
+            while (!salir) {
+                System.out.println();
+                System.out.println("###################################################################");
+                System.out.println("##                            MENÚ                               ##");
+                System.out.println("## 1. Mostrar puntos registrados                                 ##");
+                System.out.println("## 2. Insertar punto                                             ##");
+                System.out.println("## 3. Eliminar punto                                             ##");
+                System.out.println("## 4. Modificar punto                                            ##");
+                System.out.println("## 5. Salir                                                      ##");
+                System.out.println("###################################################################");
 
-            try {
                 System.out.print("Escribe una de las opciones: ");
                 opcion = scanner.nextInt();
 
@@ -31,13 +31,17 @@ public class Main {
                         gestorDB.mostrarPuntos(tooltipToShow);
                         break;
                     case 2:
-                        insertarPunto(gestorDB);
+                        insertarPunto(scanner, gestorDB);
                         break;
                     case 3:
-                        eliminarPunto(gestorDB);
+                        System.out.print("Introduce el Tooltip del punto que deseas eliminar: ");
+                        String tooltipEliminar = scanner.nextLine(); // Leer el Tooltip a eliminar
+                        eliminarPunto(scanner, gestorDB);
+
                         break;
                     case 4:
-                        modificarPunto(gestorDB);
+                        scanner.nextLine(); // Consumir la nueva línea en el búfer
+                        modificarPunto(scanner, gestorDB);
                         break;
                     case 5:
                         salir = true;
@@ -46,16 +50,15 @@ public class Main {
                     default:
                         System.out.println("Solo números entre 1 y 5");
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Debes insertar un número");
-                scanner.next();
             }
+        } catch (XQException e) {
+            System.out.println("Error de base de datos: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
-    public static void insertarPunto(GestorDB gestorDB) {
-        Scanner scanner = new Scanner(System.in);
-
+    public static void insertarPunto(Scanner scanner, GestorDB gestorDB) {
         System.out.print("ED50 Coordenada X: ");
         double ed50CoordX = scanner.nextDouble();
 
@@ -88,25 +91,15 @@ public class Main {
         gestorDB.insertarPunto(punt);
     }
 
-    public static void eliminarPunto(GestorDB gestorDB) {
-        Scanner scanner = new Scanner(System.in);
-
-        //System.out.print("Indica la coordenada X de ED50 del punto que deseas eliminar: ");
-        //double ed50CoordX = scanner.nextDouble();
-
-        //System.out.print("Indica la coordenada Y de ED50 del punto que deseas eliminar: ");
-        //double ed50CoordY = scanner.nextDouble();
-        //scanner.nextLine(); // Consumir la nueva línea en el búfer
-
+    public static void eliminarPunto(Scanner scanner, GestorDB gestorDB) throws Exception {
         System.out.print("Introduce el Tooltip del punto que deseas eliminar: ");
         String tooltip = scanner.nextLine();
-
         gestorDB.eliminarPunto(tooltip);
     }
 
 
-    public static void modificarPunto(GestorDB gestorDB) {
-        Scanner scanner = new Scanner(System.in);
+
+    public static void modificarPunto(Scanner scanner, GestorDB gestorDB) {
 
         System.out.print("Introduce el Tooltip del punto que deseas modificar: ");
         String oldTooltip = scanner.nextLine();
