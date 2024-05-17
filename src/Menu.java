@@ -104,14 +104,6 @@ public class Menu {
         gestorDB.insertarPunto(punt);
     }
 
-    public static void eliminarPunto(Scanner scanner, GestorDB gestorDB) throws Exception {
-        System.out.print("Introduce el Tooltip del punto que deseas eliminar: ");
-        String tooltip = scanner.next();
-        gestorDB.eliminarPunto(tooltip);
-    }
-
-
-
     public static void modificarPunto(Scanner scanner, GestorDB gestorDB) {
 
         System.out.print("Introduce el Tooltip del punto que deseas modificar: ");
